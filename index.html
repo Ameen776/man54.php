@@ -1,8 +1,1147 @@
-<?php
-// Hardcoded credentials (CHANGE THESE IN PRODUCTION! Use stronger hashing like password_hash() for better security)
-// MD5 is used here as requested, but it's insecure and deprecated for passwords
-$valid_password = md5('password'); // MD5 hash of 'password'; change the plain password and re-hash
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏢 منصة الاستثمار العقاري - VIP</title>
+    <style>
+        :root {
+            --gold: #d4af37;
+            --gold-dark: #b8960f;
+            --dark: #1a1a2e;
+            --darker: #0f0f1a;
+            --light: #e0e0e0;
+            --card-bg: #1e1e35;
+            --accent: #c9a84c;
+            --green: #2ecc71;
+            --red: #e74c3c;
+            --blue: #3498db;
+            --premium: linear-gradient(135deg, #1a1a2e 0%, #2d1f0f 50%, #1a1a2e 100%);
+            --vip-gold: linear-gradient(135deg, #d4af37 0%, #f5e6a3 30%, #d4af37 60%, #b8960f 100%);
+        }
 
-// The rest of the script is base64 encoded
-$encoded_script = 'c2Vzc2lvbl9zdGFydCgpOwoKLy8gSGFuZGxlIGxvZ2luCmlmIChpc3NldCgkX1BPU1RbJ2FjdGlvbiddKSAmJiAkX1BPU1RbJ2FjdGlvbiddID09PSAnbG9naW4nKSB7CiAgICAkcGFzc3dvcmQgPSAkX1BPU1RbJ3Bhc3N3b3JkJ10gPz0gJyc7CiAgICBpZiAobWQ1KCRwYXNzd29yZCkgPT09ICR2YWxpZF9wYXNzd29yZCkgewoJICAgICRfU0VTU0lPTlsnbG9nZ2VkX2luJ10gPSB0cnVlOwogICAgICAgIGhlYWRlcignTG9jYXRpb246ICcgLiAkX1NFUlZFUlsnUEhQX1NFTEYnXSAuIChpc3NldCgkX0dFVFsnZGlyJ10pID8gJz9kaXI9JyAuIHVybGVuY29kZSgkX0dFVFsnZGlyJ10pIDogJycpKTsKICAgICAgICBleGl0OwogICAgfSBlbHNlIHsKICAgICAgICAkbG9naW5fZXJyb3IgPSAn2YfZhNmF2Kkg2YXYtNin2LHYqSDZhdiv2Kkg2YbYp9mE2KkuJzsKICAgIH0KfQoKLy8gSGFuZGxlIGxvZ291dAppZiAoaXNzZXQoJF9QT1NUWyJhY3Rpb24iXSkgJiYgJF9QT1NUWyJhY3Rpb24iXSA9PT0gImxvZ291dCIpIHsKICAgIHNlc3Npb25fZGVzdHJveSgpOwogICAgaGVhZGVyKCdMb2NhdGlvbjogJyAuICRfU0VSVkVSWydQSF9TRUxGJ10pOwogICAgZXhpdDsKfQoKLy8gQ2hlY2sgaWYgbG9nZ2VkIGluCmlmICghKGlzc2V0KCRfU0VTU0lPTlsnbG9nZ2VkX2luJ10pICYmICRfU0VTU0lPTlsnbG9nZ2VkX2luJ10gPT09IHRydWUpKSB7CiAgICAvLyBTaG93IGxvZ2luIGZvcm0KICAgID8+CQk8IURPQ1RZUEUgaHRtbD4KCTxo
-dG1sIGxhbmc9ImFyIiBkaXI9InJ0bCI+Cgk8aGVhZD4KCSAgICA8bWV0YSBjaGFyc2V0PSJVVFYtOCI+CgkJPG1ldGEgbmFtZT0idmlld3BvcnQiIGNvbnRlbnQ9IndpZHRoPWRldmljZS13aWR0aCwgaW5pdGlhbC1zY2FsZT0xLjAiPgoJCTx0aXRsZT7Zh9mG2KXZhSDZg9ix2K/Yp9mEPC90aXRsZT4KCSAgICA8bGluayBocmVmPSJodHRwczovL2ZvbnRzLmdvb2dsZWFwaXMuY29tL2NzczI/ZmFtaWx5PU5vdG8rS3VmaStBcmFiaWM6d2d0QDQwMDs3MDAmZGlzcGxheT1zd2FwIiByZWw9InN0eWxlc2hlZXQiPgoJCTxzdHlsZT4KCSAgICAgICAgQGltcG9ydCB1cmwoJ2h0dHBzOi8vZm9udHMuZ29vZ2xlYXBpcy5jb20vY3NzMj9mYW1pbHk9Tm90bytLdWZpK0FyYWJpYzp3Z3RAMDA7NzAwJmRpc3BsYXk9c3dhcCcpOwoJCQlib2R5IHsKCQkJCWZvbnQtZmFtaWx5OiAnTm90byBLdWZpIEFyYWJpYycsIHNhbnMtc2VyaWY7CgkJCQltYXJnaW46IDA7CgkJCQlwYWRkaW5nOiAwOwoJCQkJYmFja2dyb3VuZC1pbWFnZTogdXJsKCdodHRwczovL3VwbG9hZC53aWtpbWVkaWEub3JnL3dpa2lwZWRpYS9jb21tb25zL3RodW1iLzcvNzcvRmxhZ19vZl9BbGdlcmlhLnN2Zy8xOTIwcHgtRmxhZ19vZl9BbGdlcmlhLnN2Zy5wbmcnKTsKCQkJCWJhY2tncm91bmQtc2l6ZTogY292ZXI7CgkJCQliYWNrZ3JvdW5kLXBvc2l0aW9uOiBjZW50ZXI7CgkJCQliYWNrZ3JvdW5kLXJlcGVhdDogbm8tcmVwZWF0OwoJCQkJYmFja2dyb3VuZC1hdHRhY2htZW50OiBmaXhlZDsKCQkJCWNvbG9yOiAjMDBmZjAwOwoJCQkJb3ZlcmZsb3c6IGhpZGRlbjsKCQkJCWRpcmVjdGlvbjogcnRsOwoJCQkJdGV4dC1hbGlnbjogcmlnaHQ7CgkJCX0KCQkJY2FudmFzIHsKCQkJCXBvc2l0aW9uOiBmaXhlZDsKCQkJCXRvcDogMDsKCQkJCWxlZnQ6IDA7CgkJCQl6LWluZGV4OiAwOwoJCQl9CgkJCQkubG9naW4tY29udGFpbmVyIHsKCQkJCQliYWNrZ3JvdW5kOiByZ2JhKDAsIDAsIDAsIDAuNyk7CgkJCQkJcGFkZGluZzogMzBweDsKCQkJCQlib3JkZXItcmFkaXVzOiA4cHg7CgkJCQkJYm94LXNoYWRvdzogMCAwIDIwcHggcmdiYSgwLCAyNTUsIDAsIDAuNSk7CgkJCQkJd2lkdGg6IDQwMHB4OwoJCQkJCW1hcmdpbjogNTBweCBhdXRvOwoJCQkJCWJvcmRlcjogMXB4IHNvbGlkICMwMGZmMDA7CgkJCQkJcG9zaXRpb246IHJlbGF0aXZlOwoJCQkJCXotaW5kZXg6IDE7CgkJCQkJZGlzcGxheTogZmxleDsKCQkJCQlkbGV4LWRpcmVjdGlvbjogY29sdW1uOwoJCQkJCWFsaWduLWl0ZW1zOiBjZW50ZXI7CgkJCQl9CgkJCQkubG9naW4tY29udGFpbmVyIHsKCQkJCQliYWNrZ3JvdW5kOiByZ2JhKDAsIDAsIDAsIDAuNyk7CgkJCQkJcGFkZGluZzogMzBweDsKCQkJCQlib3JkZXItcmFkaXVzOiA4cHg7CgkJCQkJYm94LXNoYWRvdzogMCAwIDIwcHggcmdiYSgwLCAyNTUsIDAsIDAuNSk7CgkJCQkJd2lkdGg6IDQwMHB4OwoJCQkJCW1hcmdpbjogNTBweCBhdXRvOwoJCQkJCWJvcmRlcjogMXB4IHNvbGlkICMwMGZmMDA7CgkJCQkJcG9zaXRpb246IHJlbGF0aXZlOwoJCQkJCXotaW5kZXg6IDE7CgkJCQkJZGlzcGxheTogZmxleDsKCQkJCQlkbGV4LWRpcmVjdGlvbjogY29sdW1uOwoJCQkJCWFsaWduLWl0ZW1zOiBjZW50ZXI7CgkJCQl9CgkJCQkuYXNjaWktYXJ0IHsKCQkJCQl0ZXh0LWFsaWduOiBjZW50ZXI7CgkJCQkJY29sb3I6ICMwMGZmMDA7CgkJCQkJZm9udC1mYW1pbHk6IG1vbm9zcGFjZTsKCQkJCQlmb250LXNpemU6IDdweDsKCQkJCQltYXJnaW4tYm90dG9tOiAyMHB4OwoJCQkJCXRleHQtc2hhZG93OiAwIDAgNXB4ICMwMGZmMDA7CgkJCQkJd2hpdGUtc3BhY2U6IHByZTsKCQkJCQlsaW5lLWhlaWdodDogMTsKCQkJCQl3aWR0aDogMTAwJTsKCQkJCX0KCQkJCWgyIHsKCQkJCQlmb250LWZhbWlseTogJ05vdG8gS3VmaSBBcmFiaWMnLCBzYW5zLXNlcmlmOwoJCQkJCWZvbnQtd2VpZ2h0OiA3MDA7CgkJCQkJY29sb3I6ICMwMGZmMDA7CgkJCQkJdGV4dC1hbGlnbjogY2VudGVyOwoJCQkJCW1hcmdpbi1ib3R0b206IDIwcHg7CgkJCQkJdGV4dC1zaGFkb3c6IDAgMCA1cHggIzAwZmYwMDsKCQkJCX0KCQkJCS5mb3JtLWdyb3VwIHsgCgkJCQkJbWFyZ2luLWJvdHRvbTogMTVweDsKCQkJCQl3aWR0aDogMTAwJTsKCQkJCX0KCQkJCWxhYmVsIHsKCQkJCQlkb2RpcGxheTogYmxvY2s7CgkJCQkJbWFyZ2luLWJvdHRvbTogNXB4OwoJCQkJCWNvbG9yOiAjMDBmZjAwOwoJCQl9CgkJCQlpbnB1dFt0eXBlPSJwYXNzd29yZCJdIHsKCQkJCQl3aWR0aDogMTAwJTsKCQkJCQlwYWRkaW5nOiAxMHB4OwoJCQkJCWJvcmRlcjogMXB4IHNvbGlkICMwMGZmMDA7CgkJCQkJYm9yZGVyLXJhZGl1czogNHB4OwoJCQkJCWJhY2tncm91bmQ6IHJnYmEoMCwgMCwgMCwgMC41KTsKCQkJCQljb2xvcjogIzAwZmYwMDsKCQkJCQlib3gtc2l6aW5nOiBib3JkZXItYm94OwoJCQl9CgkJCQlpbnB1dFt0eXBlPSJwYXNzd29yZCJdOjpwbGFjZWhvbGRlciB7CgkJCQkJY29sb3I6ICMwMGZmMDA7CgkJCQkJb3BhY2l0eTogMC43OwoJCQl9CgkJCQlidXR0b24gewoJCQkJCXdpZHRoOiAxMDAlOwoJCQkJCXBhZGRpbmc6IDEwcHg7CgkJCQkJYmFja2dyb3VuZDogIzAwZmYwMDsKCQkJCQljb2xvcjogIzAwMDsKCQkJCQlib3JkZXI6IG5vbmU7CgkJCQkJYm9yZGVyLXJhZGl1czogNHB4OwoJCQkJCWN1cnNvcjogcG9pbnRlcjsKCQkJCQlkZm9udC1mYW1pbHk6ICdOb3RvIEt1ZmkgQXJhYmljJywgc2Fucy1zZXJpZjsKCQkJCQlmb250LXdlaWdodDogNzAwOwoJCQkJCXRyYW5zaXRpb246IGFsbCAwLjNzOwoJCQl9CgkJCQlidXR0b246aG92ZXIgewoJCQkJCWJhY2tncm91bmQ6ICMwMGNjMDA7CgkJCQkJYm94LXNoYWRvdzogMCAwIDEwcHggIzAwZmYwMDsKCQkJCX0KCQkJCS5lcnJvciB7CgkJCQkJY29sb3I6ICNmZjAwMDA7CgkJCQkJbWFyZ2luLXRvcDogMTBweDsKCQkJCQl0ZXh0LWFsaWduOiBjZW50ZXI7CgkJCQkJZm9udC1zaXplOiAxNHB4OwoJCQl9CgkJCQkuY29weXJpZ2h0IHsKCQkJCQlwb3NpdGlvbjogZml4ZWQ7CgkJCQkJYm90dG9tOiAyMHB4OwoJCQkJCWxlZnQ6IDA7CgkJCQkJcmlnaHQ6IDA7CgkJCQkJei1pbmRleDogMTsKCQkJCQl0ZXh0LWFsaWduOiBjZW50ZXI7CgkJCQkJY29sb3I6ICMwMGZmMDA7CgkJCQkJZm9udC1mYW1pbHk6ICdOb3RvIEt1ZmkgQXJhYmljJywgc2Fucy1zZXJpZjsKCQkJCQlmb250LXNpemU6IDE0cHg7CgkJCQkJdGV4dC1zaGFkb3c6IDAgMCAzcHggIzAwZmYwMDsKCQkJCX0KCQkJCS5jb3B5cmlnaHQgYSB7CgkJCQkJY29sb3I6ICMwMGZmMDA7CgkJCQkJdGV4dC1kZWNvcmF0aW9uOiBub25lOwoJCQl9CgkJCQkuY29weXJpZ2h0IGE6aG92ZXIgewoJCQkJCXRleHQtZGVjb3JhdGlvbjogdW5kZXJsaW5lOwoJCQl9CgkJPC9zdHlsZT4KCTwvaGVhZD4KCTxib2R5PgoJCTxjYW52YXMgaWQ9Im1hdHJpeCI+PC9jYW52YXM+CgkJPGRpdiBjbGFzcz0ibG9naW4tY29udGFpbmVyIj4KCQkJPGRpdiBjbGFzcz0iYXNjaWktYXJ0Ij4KCQkJCSAgICAgICAgQCAgICAgICAgICAgICAgQEAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAoJCQkJICAgICAgICBAQCAgICAgICAgICAgICNAQCAgICAgICAgICAgICAgICAgICAgICAgICAgCgkJCQkJICAgICAgQEBAICAgICAgICAgICtAQCAgICAgICAgICAgICAgICAgICAgICAgICAKCQkJCQkgICAgICBAQEAgICAgICAgICAgK0BAICAgICAgICAgICAgICAgICAgICAgICAgIAoJCQkJCSAgICAgIEBAQCAgICBAQEBAQEBAQCAgICtAQEBAICAgICAgICAgICAgICAgICAgIAoJCQkJCSAgICAgIEBAQEBAJSVBU0BAQEBAQEArQEBAQEAgICAgICAgICAgICAgICAgICAKCQkJCQkgICAgICAgQEBAQEBAQEBAQEBAQEBAQEBAICAgICAgICAgICAgICAgICAgIAoJCQkJCSAgICAgICBATEBAQEBAQEBAQEBAQEBAQEBAQEAgICAgICAgICAgICAgICAgIAoJCQkJCSAgICAgICBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEAgQEAgICAgICAgICAgIAoJCQkJCSAgICAgICBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEAgICAgICAgICAgIAoJCQkJCSAgICAgICBAQEBAQCo4QEBAQEBAQEBAKiBAQEBAQEAgICAgICAgICAgICAgIAoJCQkJCSAgICAgICBAQEBAQSMrK0BAQEAqKytAQEBAQEBAICAgICAgICAgICAgICAgIAoJCQkJCSAgICAgICAgQEBAQEBAQEBAQEBAQEBAQEBAQEAgICAgICAgICAgICAgICAgCgkJCQkJICAgICAgKioqKioqKioqQEBBQUFBQUUlJUBAQEAQioqKioqKioqICAgICAgICAgIAoJCQkJCSAgKioqKioqKiUlQEBAQEBAQEBAQEBAQioqQEBAQEBAQEBAQEBAQCMqKioqKioqKioqICAgIAoJCQkJCSAgKioqKiUlQEBAQEBAQEBAQEBAQEBAQioqQEBAQEBAQEBAQEBAQEBAQEAlIioqKioqIAoJCQkJCSAgICAgKioqKiUlQEBAQEBAQEBAQEBAQCMqKiBAQEBAQEBAQEBAQEBAQEAlIioqKioqIAoJCQkJCSAgICMJCioqQEBAQEBAQEBAQEBAQEAlQEBAQCMlIioqQEBAQEBAQEBAQEBAQEBAQEBAQEAlIioqKioqIAoJCQkJCSAgIioqKioqKioqQEBAQEBAQEBAQEBAQEAlQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQioqKioqKioqIAoJCQkJCSAjKioqQEBAQEBAQEBAQEBAQEBAQEBAQSMlQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQSMlIioqICAgIAoJCQkJCSAgICAgQEBAQEAlQEBAQEBAQEBAQEBAQEBAQSMlQEBAQEBAQEBAQEBAQEAlIioqKioqKioqICAgIAoJCQkJCSAgICAgICAgQEBAQEAlQEBAQEBAQEBAQEAlKioqJUBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAICAgIAoJCQkJCSAgICAgQEBAQEAlQEBAQEAlI0BAQEAlKioqKiVAQEBAQEBAQEBAQEAlQEBAQEBAQEBAQEBAQEAgICAgIAoJCQkJCSAgICAgICAgQEBAQCMlQEAlQCoqQEBAQEBAQioqKytAQEBAQEArKiBAQEBAQEAlQEBAQEBAQEBAQEAgICAgIAoJCQkJCSAgICAgICAgICAgQEAlQEAlQEoqQEBAQEBAQysrKytAQEBAQEArKiBAQEAlQEBAQEBAQEBAQEBAQEAgICAgIAoJCQkJCSAgICAgICAgICAgICAgICAgQEArKiAgICoqQEBAQSMrICAgICAgICAgICAgICAgICAgICAgICAgICAgIAoJCQkJCQkJCTxoMiDZh9mG2KXZhSDZg9ix2K/Yp9mEPC9oMj4KCQkJCTxmb3JtIG1ldGhvZD0icG9zdCI+CgkJCQk8aW5wdXQgdHlwZT0iaGlkZGVuIiBuYW1lPSJhY3Rpb24iIHZhbHVlPSJsb2dpbiI+CgkJCQk8ZGl2IGNsYXNzPSJmb3JtLWdyb3VwIj4KCQkJCQk8bGFiZWwgZm9yPSJwYXNzd29yZCI+2YfZhNmF2Kkg2KfYs9inOjwvbGFiZWw+CgkJCQkJPGlucHV0IHR5cGU9InBhc3N3b3JkIiBpZD0icGFzc3dvcmQiIG5hbWU9InBhc3N3b3JkIiByZXF1aXJlZCBwbGFjZWhvbGRlcj0i2KXYtNin2Kgg2YfZhNmF2Kkg2KfYs9inIj4KCQkJCTwvZGl2PgoJCQkJPGRpdiBjbGFzcz0iZm9ybS1ncm91cCI+CgkJCQkJPGJ1dHRvbiB0eXBlPSJzdWJtaXQiPtin2K/Yp9ix2Kkg2KfZhNinPC9idXR0b24+CgkJCQk8L2Rpdj4KCQkJPC9mb3JtPgoJCQk8P3BocCBpZiAoaXNzZXQoJGxvZ2luX2Vycm9yKSk6ID8+CgkJCQk8ZGl2IGNsYXNzPSJlcnJvciI+PD9waHAgZWNobyBodG1sc3BlY2lhbGNoYXJzKCRsb2dpbl9lcnJvcik7ID8+PC9kaXY+CgkJCTw/PGhwIGVuZGlmOyA/PgoJCTwvZGl2PgoJCTxkaXYgY2xhc3M9ImNvcHlyaWdodCI+CgkJCTxzcGFuPuaZhiA8L3NwYW4+PGEgaHJlZj0iaHR0cHM6Ly9pc21haWxtYW41NC5jb20iIHRhcmdldD0iX2JsYW5rIj7Zh9mG2KXZhdmE2YXYtNin2LHYqSDZg9mE2YXYp9mE2Kkg2YXYr9in2KfbjCDYqNin2YTYtNix2YfYsdinPC9hPgoJCTwvZGl2PgoJCTxzY3JpcHQ+CgkJCWNvbnN0IGNhbnZhcyA9IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdtYXRyaXgnKTsKCQkJY29uc3QgY3R4ID0gY2FudmFzLmdldENvbnRleHQoJzJkJyk7CgkJCWNhbnZhcy53aWR0aCA9IHdpbmRvdy5pbm5lcldpZHRoOwoJCQljYW52YXMuaGVpZ2h0ID0gd2luZG93LmlubmVySGVpZ2h0OwoJCQljb25zdCBjaGFycyA9ICfZh9mG2KXZhdmE2YXYtNin2LHYqSDZg9ix2K/Yp9mE2KfbjCDYqNin2YTYtNix2YfYsdin2KXZhSDZh9mF2KXZhSDZh9ix2K/Yp9mE2KfbjCDYqNin2YTYtNix2YfYsdin2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZhSDZh9mF2KXZ
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--darker);
+            color: var(--light);
+            min-height: 100vh;
+            line-height: 1.6;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at top, rgba(212, 175, 55, 0.05) 0%, transparent 50%),
+                radial-gradient(ellipse at bottom right, rgba(212, 175, 55, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ========== شريط التنقل ========== */
+        .navbar {
+            background: rgba(15, 15, 26, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid rgba(212, 175, 55, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 0.8rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .navbar .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: var(--gold);
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+        }
+        .navbar .logo span {
+            font-size: 2rem;
+        }
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s;
+            position: relative;
+        }
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--gold);
+            background: rgba(212, 175, 55, 0.1);
+        }
+        .btn-login-nav {
+            background: var(--vip-gold);
+            color: #000 !important;
+            font-weight: bold;
+            padding: 0.6rem 1.5rem !important;
+            border-radius: 25px;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s;
+        }
+        .btn-login-nav:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.5);
+        }
+
+        /* ========== الأقسام ========== */
+        .section {
+            display: none;
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            animation: fadeIn 0.5s ease;
+        }
+        .section.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ========== الصفحة الرئيسية ========== */
+        .hero {
+            text-align: center;
+            padding: 3rem 1rem;
+            background: var(--premium);
+            border-radius: 20px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            margin-bottom: 2rem;
+        }
+        .hero h1 {
+            font-size: 2.8rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+            text-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+        }
+        .hero .vip-badge {
+            display: inline-block;
+            background: var(--vip-gold);
+            color: #000;
+            padding: 0.5rem 2rem;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin: 1rem 0;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%,
+            100% {
+                box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(212, 175, 55, 0.8);
+            }
+        }
+        .hero p {
+            font-size: 1.2rem;
+            color: #ccc;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* بطاقات العقارات */
+        .properties-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.8rem;
+            margin-top: 2rem;
+        }
+        .property-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s;
+            position: relative;
+        }
+        .property-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(212, 175, 55, 0.4);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(212, 175, 55, 0.15);
+        }
+        .property-card .img-container {
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+            position: relative;
+        }
+        .property-card .img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        .property-card:hover .img-container img {
+            transform: scale(1.08);
+        }
+        .property-card .vip-tag {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: var(--vip-gold);
+            color: #000;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.85rem;
+            z-index: 2;
+        }
+        .property-card .card-body {
+            padding: 1.2rem;
+        }
+        .property-card h3 {
+            color: var(--gold);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        .property-card .location {
+            color: #aaa;
+            font-size: 0.9rem;
+            margin-bottom: 0.8rem;
+        }
+        .property-card .price {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #fff;
+        }
+        .property-card .price span {
+            color: var(--gold);
+        }
+        .property-card .roi {
+            display: inline-block;
+            background: rgba(46, 204, 113, 0.2);
+            color: var(--green);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+        }
+        .btn-invest {
+            display: block;
+            width: 100%;
+            margin-top: 1rem;
+            padding: 0.7rem;
+            background: var(--vip-gold);
+            color: #000;
+            font-weight: bold;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        .btn-invest:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+        }
+
+        /* ========== نموذج الاستثمار ========== */
+        .invest-form-container {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 600px;
+            margin: 2rem auto;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        .invest-form-container h2 {
+            text-align: center;
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+        }
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.4rem;
+            color: #ccc;
+            font-weight: 500;
+        }
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+        }
+        .form-group select option {
+            background: var(--dark);
+            color: #fff;
+        }
+        .btn-submit-invest {
+            width: 100%;
+            padding: 0.9rem;
+            background: var(--vip-gold);
+            color: #000;
+            font-weight: bold;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            margin-top: 0.5rem;
+        }
+        .btn-submit-invest:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.5);
+        }
+        .profit-preview {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(46, 204, 113, 0.1);
+            border-radius: 10px;
+            margin-top: 1rem;
+            color: var(--green);
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        /* ========== لوحة التحكم ========== */
+        .dashboard {
+            display: none;
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        .dashboard.active {
+            display: block;
+        }
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            background: var(--card-bg);
+            padding: 1.5rem 2rem;
+            border-radius: 16px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        .dashboard-header h2 {
+            color: var(--gold);
+        }
+        .btn-logout {
+            background: var(--red);
+            color: #fff;
+            border: none;
+            padding: 0.6rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        .btn-logout:hover {
+            background: #c0392b;
+            transform: scale(1.05);
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .stat-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s;
+        }
+        .stat-card:hover {
+            border-color: rgba(212, 175, 55, 0.3);
+            transform: translateY(-3px);
+        }
+        .stat-card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .stat-card .value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--gold);
+        }
+        .stat-card .label {
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        .investments-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--card-bg);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .investments-table th,
+        .investments-table td {
+            padding: 1rem;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .investments-table th {
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--gold);
+            font-weight: bold;
+        }
+        .investments-table tr:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+        .status-active {
+            color: var(--green);
+            font-weight: bold;
+        }
+        .status-completed {
+            color: var(--blue);
+            font-weight: bold;
+        }
+        .no-data {
+            text-align: center;
+            padding: 3rem;
+            color: #aaa;
+            font-size: 1.1rem;
+        }
+
+        /* ========== نافذة تسجيل الدخول ========== */
+        .login-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        .login-overlay.show {
+            display: flex;
+        }
+        .login-box {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2.5rem;
+            width: 90%;
+            max-width: 420px;
+            border: 2px solid rgba(212, 175, 55, 0.4);
+            text-align: center;
+            animation: slideUp 0.4s ease;
+        }
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        .login-box .lock-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+        .login-box h3 {
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+        }
+        .login-box input {
+            width: 100%;
+            padding: 0.9rem;
+            margin-bottom: 1rem;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            font-size: 1rem;
+            text-align: center;
+        }
+        .login-box input:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+        .login-box .btn-login {
+            width: 100%;
+            padding: 0.9rem;
+            background: var(--vip-gold);
+            color: #000;
+            font-weight: bold;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+        }
+        .login-box .btn-login:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.5);
+        }
+        .login-error {
+            color: var(--red);
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            display: none;
+        }
+        .btn-close-login {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* ========== Toast ========== */
+        .toast {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--green);
+            color: #fff;
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            font-weight: bold;
+            z-index: 3000;
+            animation: slideDown 0.4s ease, fadeOut 0.4s 2.6s ease forwards;
+            text-align: center;
+        }
+        @keyframes slideDown {
+            from {
+                transform: translateX(-50%) translateY(-80px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(-50%) translateY(0);
+                opacity: 1;
+            }
+        }
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                transform: translateX(-50%) translateY(-30px);
+            }
+        }
+        .toast.error {
+            background: var(--red);
+        }
+
+        /* ========== Footer ========== */
+        .footer {
+            text-align: center;
+            padding: 1.5rem;
+            color: #666;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            margin-top: 3rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ========== Responsive ========== */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 0.8rem 1rem;
+            }
+            .navbar .logo {
+                font-size: 1.2rem;
+            }
+            .nav-links {
+                gap: 0.5rem;
+            }
+            .nav-links a {
+                padding: 0.4rem 0.7rem;
+                font-size: 0.85rem;
+            }
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            .section {
+                padding: 1rem;
+            }
+            .properties-grid {
+                grid-template-columns: 1fr;
+            }
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .investments-table {
+                font-size: 0.8rem;
+            }
+            .investments-table th,
+            .investments-table td {
+                padding: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========== شريط التنقل ========== -->
+    <nav class="navbar">
+        <div class="logo">
+            <span>🏢</span> العقارية الذهبية <span style="font-size:0.8rem;color:var(--gold);">VIP</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#" class="active" data-section="home">🏠 الرئيسية</a></li>
+            <li><a href="#" data-section="invest">💰 استثمر الآن</a></li>
+            <li><a href="#" data-section="vip">👑 VIP</a></li>
+            <li><a href="#" class="btn-login-nav" id="btnOpenLogin">🔐 لوحة التحكم</a></li>
+        </ul>
+    </nav>
+
+    <!-- ========== الصفحة الرئيسية ========== -->
+    <section class="section active" id="section-home">
+        <div class="hero">
+            <h1>🏢 منصة الاستثمار العقاري الذهبية</h1>
+            <div class="vip-badge">👑 VIP - استثمارات حصرية</div>
+            <p>استثمر في أفضل العقارات حول العالم بعوائد تصل إلى <strong style="color:var(--gold);">25% سنويًا</strong>. اختر عقارك، حدد مبلغ استثمارك، ودع أموالك تنمو.</p>
+        </div>
+        <h2 style="color:var(--gold);margin-bottom:1rem;">🏘️ عقارات مميزة للاستثمار</h2>
+        <div class="properties-grid" id="propertiesGrid">
+            <!-- سيتم إنشاؤها ديناميكيًا -->
+        </div>
+    </section>
+
+    <!-- ========== صفحة الاستثمار ========== -->
+    <section class="section" id="section-invest">
+        <div class="invest-form-container">
+            <h2>💰 نموذج الاستثمار العقاري</h2>
+            <div class="form-group">
+                <label>👤 اسم المستثمر</label>
+                <input type="text" id="investorName" placeholder="أدخل اسمك الكامل">
+            </div>
+            <div class="form-group">
+                <label>🏘️ اختر العقار</label>
+                <select id="investProperty">
+                    <option value="">-- اختر عقارًا --</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>💵 مبلغ الاستثمار (بالدولار)</label>
+                <input type="number" id="investAmount" placeholder="مثلاً: 10000" min="1000" step="100">
+            </div>
+            <div class="form-group">
+                <label>📅 مدة الاستثمار</label>
+                <select id="investDuration">
+                    <option value="3">3 أشهر - عائد 8%</option>
+                    <option value="6">6 أشهر - عائد 15%</option>
+                    <option value="12" selected>12 شهر - عائد 25%</option>
+                    <option value="24">24 شهر - عائد 45%</option>
+                </select>
+            </div>
+            <div class="profit-preview" id="profitPreview">
+                💰 العائد المتوقع: <span id="expectedProfit">0</span> دولار
+            </div>
+            <button class="btn-submit-invest" id="btnSubmitInvest">✅ تأكيد الاستثمار</button>
+        </div>
+    </section>
+
+    <!-- ========== صفحة VIP ========== -->
+    <section class="section" id="section-vip">
+        <div class="hero">
+            <h1>👑 برنامج VIP الحصري</h1>
+            <div class="vip-badge">✨ عضوية ذهبية</div>
+            <p>انضم إلى نخبة المستثمرين واحصل على مزايا حصرية وعوائد مضاعفة.</p>
+        </div>
+        <div class="properties-grid">
+            <div class="property-card" style="border:2px solid rgba(212,175,55,0.5);">
+                <div class="img-container">
+                    <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600" alt="فيلا VIP" onerror="this.src='https://picsum.photos/600/400?random=10'">
+                    <div class="vip-tag">👑 حصري VIP</div>
+                </div>
+                <div class="card-body">
+                    <h3>🏰 فيلا فاخرة - دبي</h3>
+                    <p class="location">📍 نخلة جميرا، دبي</p>
+                    <p class="price">السعر: <span>2,500,000$</span></p>
+                    <span class="roi">📈 عائد VIP: 30% سنويًا</span>
+                    <p style="color:#aaa;font-size:0.85rem;margin-top:0.5rem;">✨ مزايا: إدارة كاملة + ضمان استثمار + أرباح ربع سنوية</p>
+                </div>
+            </div>
+            <div class="property-card" style="border:2px solid rgba(212,175,55,0.5);">
+                <div class="img-container">
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600" alt="بنتهاوس VIP" onerror="this.src='https://picsum.photos/600/400?random=11'">
+                    <div class="vip-tag">👑 حصري VIP</div>
+                </div>
+                <div class="card-body">
+                    <h3>🌆 بنتهاوس - نيويورك</h3>
+                    <p class="location">📍 مانهاتن، نيويورك</p>
+                    <p class="price">السعر: <span>4,800,000$</span></p>
+                    <span class="roi">📈 عائد VIP: 28% سنويًا</span>
+                    <p style="color:#aaa;font-size:0.85rem;margin-top:0.5rem;">✨ مزايا: إطلالة 360° + تأجير فندقي + أرباح شهرية</p>
+                </div>
+            </div>
+            <div class="property-card" style="border:2px solid rgba(212,175,55,0.5);">
+                <div class="img-container">
+                    <img src="https://images.unsplash.com/photo-1600566753086-00f18f6b0050?w=600" alt="برج VIP" onerror="this.src='https://picsum.photos/600/400?random=12'">
+                    <div class="vip-tag">👑 حصري VIP</div>
+                </div>
+                <div class="card-body">
+                    <h3>🏗️ برج تجاري - لندن</h3>
+                    <p class="location">📍 وسط لندن المالي</p>
+                    <p class="price">السعر: <span>8,000,000$</span></p>
+                    <span class="roi">📈 عائد VIP: 32% سنويًا</span>
+                    <p style="color:#aaa;font-size:0.85rem;margin-top:0.5rem;">✨ مزايا: عقود إيجارية طويلة الأمد + دخل سلبي مضمون</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== لوحة التحكم ========== -->
+    <div class="dashboard" id="dashboard">
+        <div class="dashboard-header">
+            <h2>📊 لوحة التحكم - مرحبًا Ameenharon 👑</h2>
+            <button class="btn-logout" id="btnLogout">🚪 تسجيل الخروج</button>
+        </div>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="icon">💰</div>
+                <div class="value" id="statTotalInvest">0$</div>
+                <div class="label">إجمالي الاستثمارات</div>
+            </div>
+            <div class="stat-card">
+                <div class="icon">📈</div>
+                <div class="value" id="statTotalProfit">0$</div>
+                <div class="label">إجمالي الأرباح المتوقعة</div>
+            </div>
+            <div class="stat-card">
+                <div class="icon">🏘️</div>
+                <div class="value" id="statCount">0</div>
+                <div class="label">عدد الاستثمارات</div>
+            </div>
+            <div class="stat-card">
+                <div class="icon">👑</div>
+                <div class="value" style="color:#d4af37;">VIP</div>
+                <div class="label">المستوى</div>
+            </div>
+        </div>
+        <h3 style="color:var(--gold);margin-bottom:1rem;">📋 سجل الاستثمارات</h3>
+        <div style="overflow-x:auto;">
+            <table class="investments-table" id="investmentsTable">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>المستثمر</th>
+                        <th>العقار</th>
+                        <th>المبلغ</th>
+                        <th>المدة</th>
+                        <th>العائد المتوقع</th>
+                        <th>التاريخ</th>
+                        <th>الحالة</th>
+                    </tr>
+                </thead>
+                <tbody id="investmentsBody">
+                    <tr><td colspan="8" class="no-data">لا توجد استثمارات بعد</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ========== نافذة تسجيل الدخول ========== -->
+    <div class="login-overlay" id="loginOverlay">
+        <div class="login-box">
+            <button class="btn-close-login" id="btnCloseLogin" style="position:relative;float:left;">✕</button>
+            <div class="lock-icon">🔐</div>
+            <h3>تسجيل الدخول للوحة التحكم</h3>
+            <input type="text" id="loginUsername" placeholder="👤 اسم المستخدم">
+            <input type="password" id="loginPassword" placeholder="🔒 كلمة المرور">
+            <p class="login-error" id="loginError">❌ اسم المستخدم أو كلمة المرور غير صحيحة</p>
+            <button class="btn-login" id="btnLogin">دخول</button>
+            <p style="color:#666;font-size:0.75rem;margin-top:1rem;">للدخول التجريبي: Ameenharon / Ameen776</p>
+        </div>
+    </div>
+
+    <!-- ========== Footer ========== -->
+    <div class="footer">
+        © 2026 منصة العقارية الذهبية VIP - جميع الحقوق محفوظة | 🔒 آمن ومضمون
+    </div>
+
+    <script>
+        // =============== بيانات العقارات ===============
+        const properties = [
+            { id: 1, name: 'فيلا فاخرة - دبي', location: 'نخلة جميرا، دبي', price: 2500000, roi: '25%',
+                img: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600', vip: true },
+            { id: 2, name: 'شقة حديثة - الرياض', location: 'حي الملقا، الرياض', price: 850000, roi: '18%',
+                img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600', vip: false },
+            { id: 3, name: 'بنتهاوس - نيويورك', location: 'مانهاتن، نيويورك', price: 4800000, roi: '28%',
+                img: 'https://images.unsplash.com/photo-1600566753086-00f18f6b0050?w=600', vip: true },
+            { id: 4, name: 'استوديو - لندن', location: 'منطقة كينغستون، لندن', price: 450000, roi: '15%',
+                img: 'https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=600', vip: false },
+            { id: 5, name: 'فيلا شاطئية - ميامي', location: 'ميامي بيتش، فلوريدا', price: 3200000, roi: '22%',
+                img: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=600', vip: true },
+            { id: 6, name: 'شقة - اسطنبول', location: 'منطقة بشكتاش، اسطنبول', price: 380000, roi: '20%',
+                img: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=600', vip: false },
+            { id: 7, name: 'برج تجاري - دبي', location: 'وسط مدينة دبي', price: 6500000, roi: '30%',
+                img: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600', vip: true },
+            { id: 8, name: 'تاون هاوس - القاهرة', location: 'التجمع الخامس، القاهرة', price: 280000, roi: '16%',
+                img: 'https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=600', vip: false },
+        ];
+
+        // =============== بيانات الاعتماد ===============
+        const ADMIN_USERNAME = 'Ameenharon';
+        const ADMIN_PASSWORD = 'Ameen776';
+
+        // =============== حالة التطبيق ===============
+        let isLoggedIn = false;
+        let investments = JSON.parse(localStorage.getItem('investmentsData')) || [];
+
+        // =============== عرض العقارات ===============
+        function renderProperties() {
+            const grid = document.getElementById('propertiesGrid');
+            grid.innerHTML = properties.map(p => `
+                <div class="property-card">
+                    <div class="img-container">
+                        <img src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.src='https://picsum.photos/600/400?random=${p.id}'">
+                        ${p.vip ? '<div class="vip-tag">👑 VIP</div>' : ''}
+                    </div>
+                    <div class="card-body">
+                        <h3>${p.vip ? '👑 ' : ''}${p.name}</h3>
+                        <p class="location">📍 ${p.location}</p>
+                        <p class="price">السعر: <span>${p.price.toLocaleString()}$</span></p>
+                        <span class="roi">📈 عائد سنوي: ${p.roi}</span>
+                        <button class="btn-invest" onclick="quickInvest(${p.id})">💼 استثمر الآن</button>
+                    </div>
+                </div>
+            `).join('');
+
+            // تحديث قائمة العقارات في نموذج الاستثمار
+            const select = document.getElementById('investProperty');
+            select.innerHTML = '<option value="">-- اختر عقارًا --</option>' +
+                properties.map(p => `<option value="${p.id}">${p.name} - ${p.price.toLocaleString()}$ (${p.roi})</option>`)
+                .join('');
+        }
+
+        // =============== استثمار سريع ===============
+        function quickInvest(propertyId) {
+            document.getElementById('investProperty').value = propertyId;
+            switchSection('invest');
+            document.getElementById('investAmount').focus();
+            // تمرير إلى النموذج
+            document.getElementById('section-invest').scrollIntoView({ behavior: 'smooth' });
+            calculateProfit();
+        }
+
+        // =============== حساب الأرباح ===============
+        function calculateProfit() {
+            const amount = parseFloat(document.getElementById('investAmount').value) || 0;
+            const duration = parseInt(document.getElementById('investDuration').value) || 12;
+            const propertyId = parseInt(document.getElementById('investProperty').value);
+            let baseRoi = 0.25; // افتراضي
+
+            if (propertyId) {
+                const prop = properties.find(p => p.id === propertyId);
+                if (prop) baseRoi = parseFloat(prop.roi) / 100;
+            }
+
+            // تعديل العائد حسب المدة
+            const durationMultiplier = duration / 12;
+            const profit = amount * baseRoi * durationMultiplier;
+            const profitElement = document.getElementById('expectedProfit');
+            profitElement.textContent = profit.toLocaleString(undefined, { minimumFractionDigits: 2,
+                maximumFractionDigits: 2 });
+            profitElement.style.color = profit > 0 ? '#2ecc71' : '#e0e0e0';
+        }
+
+        // =============== تقديم الاستثمار ===============
+        function submitInvestment() {
+            const name = document.getElementById('investorName').value.trim();
+            const propertyId = parseInt(document.getElementById('investProperty').value);
+            const amount = parseFloat(document.getElementById('investAmount').value);
+            const duration = parseInt(document.getElementById('investDuration').value);
+
+            // التحقق
+            if (!name) {
+                showToast('❌ الرجاء إدخال اسم المستثمر', 'error');
+                return;
+            }
+            if (!propertyId || isNaN(propertyId)) {
+                showToast('❌ الرجاء اختيار عقار', 'error');
+                return;
+            }
+            if (!amount || amount < 1000) {
+                showToast('❌ الحد الأدنى للاستثمار 1,000 دولار', 'error');
+                return;
+            }
+
+            const property = properties.find(p => p.id === propertyId);
+            const baseRoi = parseFloat(property.roi) / 100;
+            const durationMultiplier = duration / 12;
+            const expectedProfit = amount * baseRoi * durationMultiplier;
+
+            const investment = {
+                id: Date.now(),
+                investorName: name,
+                propertyName: property.name,
+                propertyId: propertyId,
+                amount: amount,
+                duration: duration,
+                expectedProfit: expectedProfit,
+                date: new Date().toLocaleDateString('ar-SA'),
+                status: 'نشط',
+                isVip: property.vip,
+            };
+
+            investments.unshift(investment);
+            saveInvestments();
+            showToast('✅ تم تقديم الاستثمار بنجاح! سيتم مراجعته قريبًا.');
+
+            // إعادة تعيين النموذج
+            document.getElementById('investorName').value = '';
+            document.getElementById('investAmount').value = '';
+            document.getElementById('investProperty').value = '';
+            document.getElementById('investDuration').value = '12';
+            document.getElementById('expectedProfit').textContent = '0';
+            calculateProfit();
+        }
+
+        // =============== حفظ الاستثمارات ===============
+        function saveInvestments() {
+            localStorage.setItem('investmentsData', JSON.stringify(investments));
+            if (isLoggedIn) renderDashboard();
+        }
+
+        // =============== عرض لوحة التحكم ===============
+        function renderDashboard() {
+            const totalInvest = investments.reduce((sum, inv) => sum + inv.amount, 0);
+            const totalProfit = investments.reduce((sum, inv) => sum + inv.expectedProfit, 0);
+            const count = investments.length;
+
+            document.getElementById('statTotalInvest').textContent = totalInvest.toLocaleString() + '$';
+            document.getElementById('statTotalProfit').textContent = totalProfit.toLocaleString(undefined, {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            }) + '$';
+            document.getElementById('statCount').textContent = count;
+
+            const tbody = document.getElementById('investmentsBody');
+            if (count === 0) {
+                tbody.innerHTML = '<tr><td colspan="8" class="no-data">لا توجد استثمارات بعد</td></tr>';
+            } else {
+                tbody.innerHTML = investments.map((inv, index) => `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td>${inv.investorName}${inv.isVip ? ' 👑' : ''}</td>
+                        <td>${inv.propertyName}</td>
+                        <td>${inv.amount.toLocaleString()}$</td>
+                        <td>${inv.duration} شهر</td>
+                        <td style="color:#2ecc71;font-weight:bold;">${inv.expectedProfit.toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2})}$</td>
+                        <td>${inv.date}</td>
+                        <td><span class="${inv.status === 'نشط' ? 'status-active' : 'status-completed'}">${inv.status}</span></td>
+                    </tr>
+                `).join('');
+            }
+        }
+
+        // =============== تبديل الأقسام ===============
+        function switchSection(sectionName) {
+            // إخفاء الكل
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.getElementById('dashboard').classList.remove('active');
+
+            if (sectionName === 'dashboard') {
+                document.getElementById('dashboard').classList.add('active');
+            } else if (sectionName === 'home') {
+                document.getElementById('section-home').classList.add('active');
+            } else if (sectionName === 'invest') {
+                document.getElementById('section-invest').classList.add('active');
+            } else if (sectionName === 'vip') {
+                document.getElementById('section-vip').classList.add('active');
+            }
+
+            // تحديث الروابط النشطة
+            document.querySelectorAll('.nav-links a[data-section]').forEach(a => a.classList.remove('active'));
+            const activeLink = document.querySelector(`.nav-links a[data-section="${sectionName}"]`);
+            if (activeLink) activeLink.classList.add('active');
+
+            // تمرير للأعلى
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // إذا كانت لوحة التحكم، تأكد من تسجيل الدخول
+            if (sectionName === 'dashboard' && !isLoggedIn) {
+                openLogin();
+                return;
+            }
+            if (sectionName === 'dashboard' && isLoggedIn) {
+                renderDashboard();
+            }
+        }
+
+        // =============== تسجيل الدخول ===============
+        function openLogin() {
+            document.getElementById('loginOverlay').classList.add('show');
+            document.getElementById('loginError').style.display = 'none';
+            document.getElementById('loginUsername').value = '';
+            document.getElementById('loginPassword').value = '';
+        }
+
+        function closeLogin() {
+            document.getElementById('loginOverlay').classList.remove('show');
+            if (!isLoggedIn) {
+                switchSection('home');
+            }
+        }
+
+        function login() {
+            const username = document.getElementById('loginUsername').value.trim();
+            const password = document.getElementById('loginPassword').value.trim();
+
+            if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+                isLoggedIn = true;
+                closeLogin();
+                switchSection('dashboard');
+                renderDashboard();
+                showToast('✅ مرحبًا Ameenharon! تم تسجيل الدخول بنجاح 👑');
+            } else {
+                document.getElementById('loginError').style.display = 'block';
+                document.getElementById('loginPassword').value = '';
+                document.getElementById('loginPassword').focus();
+            }
+        }
+
+        function logout() {
+            isLoggedIn = false;
+            document.getElementById('dashboard').classList.remove('active');
+            switchSection('home');
+            showToast('👋 تم تسجيل الخروج بنجاح');
+        }
+
+        // =============== Toast ===============
+        function showToast(message, type = 'success') {
+            const existing = document.querySelector('.toast');
+            if (existing) existing.remove();
+
+            const toast = document.createElement('div');
+            toast.className = 'toast' + (type === 'error' ? ' error' : '');
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3200);
+        }
+
+        // =============== الأحداث ===============
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProperties();
+
+            // روابط التنقل
+            document.querySelectorAll('.nav-links a[data-section]').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const section = link.getAttribute('data-section');
+                    switchSection(section);
+                });
+            });
+
+            // زر فتح تسجيل الدخول
+            document.getElementById('btnOpenLogin').addEventListener('click', (e) => {
+                e.preventDefault();
+                if (isLoggedIn) {
+                    switchSection('dashboard');
+                } else {
+                    openLogin();
+                }
+            });
+
+            // أزرار تسجيل الدخول
+            document.getElementById('btnCloseLogin').addEventListener('click', closeLogin);
+            document.getElementById('loginOverlay').addEventListener('click', function(e) {
+                if (e.target === this) closeLogin();
+            });
+            document.getElementById('btnLogin').addEventListener('click', login);
+            document.getElementById('loginPassword').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') login();
+            });
+            document.getElementById('loginUsername').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') document.getElementById('loginPassword').focus();
+            });
+
+            // تسجيل الخروج
+            document.getElementById('btnLogout').addEventListener('click', logout);
+
+            // حساب الأرباح عند التغيير
+            document.getElementById('investAmount').addEventListener('input', calculateProfit);
+            document.getElementById('investDuration').addEventListener('change', calculateProfit);
+            document.getElementById('investProperty').addEventListener('change', calculateProfit);
+
+            // تقديم الاستثمار
+            document.getElementById('btnSubmitInvest').addEventListener('click', submitInvestment);
+        });
+
+        // =============== اختصارات لوحة المفاتيح ===============
+        document.addEventListener('keydown', function(e) {
+            // Ctrl+Shift+L لفتح تسجيل الدخول
+            if (e.ctrlKey && e.shiftKey && e.key === 'L') {
+                e.preventDefault();
+                if (isLoggedIn) {
+                    switchSection('dashboard');
+                } else {
+                    openLogin();
+                }
+            }
+            // Escape لإغلاق النوافذ
+            if (e.key === 'Escape') {
+                if (document.getElementById('loginOverlay').classList.contains('show')) {
+                    closeLogin();
+                }
+            }
+        });
+
+        console.log('🏢 منصة الاستثمار العقاري VIP جاهزة');
+        console.log('🔐 بيانات الدخول: Ameenharon / Ameen776');
+        console.log('💡 اختصار: Ctrl+Shift+L لفتح لوحة التحكم');
+        console.log('📊 الاستثمارات محفوظة في localStorage');
+    </script>
+</body>
+</html>
